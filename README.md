@@ -8,9 +8,7 @@
 
 * **Backend:** PHP 8.x, Laravel (Модульная архитектура: `Catalog`, `Sales`), Eloquent ORM, MySQL.
 * **Frontend:** React 18, React Router v6, Vite.
-* **Инфраструктура:** Docker, Docker Compose, Nginx.
-* **Безопасность & Аутентификация:** CSRF-защита сессий (`web`-middleware, `form_key`), базовое шифрование/кодирование URL параметров (`uenc`).
-
+* **Инфраструктура:** Docker, Docker Compose, Apache.
 ---
 
 ## 🏗 Архитектура и Особенности
@@ -36,7 +34,7 @@
 ```bash
 
 git clone <repository-url>
-cd shop-app
+cd shop_app
 
 ```
 
