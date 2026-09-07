@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Modules\Catalog\Models\ProductType;
 use Modules\Catalog\Models\Category;
 
-class ProductWithDimensionsSeeder extends Seeder
+class ProductWithDependenciesSeeder extends Seeder
 {
     const TABLE_NAME = 'products';
 
