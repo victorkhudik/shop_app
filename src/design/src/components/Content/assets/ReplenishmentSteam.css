@@ -1,0 +1,236 @@
+.steam-replenishment {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    width: 100%;
+    @media (min-width: 1280px) {
+        flex-wrap: nowrap;
+    }
+}
+
+.steam-replenishment-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+    width: 100%;
+    @media (min-width: 1280px) {
+        width: 25%;
+    }
+}
+
+.steam-replenishment-info .image-wrapper {
+    height: 72px;
+    width: 72px;
+}
+
+.steam-replenishment-info .header {
+    align-items: center;
+    display: flex;
+    gap: 0 8px;
+    margin: 9.5px 0 0;
+}
+
+.steam-replenishment-info .header .badge {
+    background-color: var(--color-refreshing-mint);
+    border-radius: 20px;
+    color: var(--color-white);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 20px;
+    padding: 0 8px;
+}
+
+.steam-replenishment-info .button-promo {
+    background: rgba(38, 139, 243, 0.1);
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-black);
+    font-size: 12px;
+    font-weight: 700;
+    gap: 0 2px;
+    line-height: 1.5;
+    padding: 4px 12px;
+}
+
+.steam-replenishment-info .button-promo .icon {
+    transform: rotate(90deg);
+}
+
+.replenishment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        width: auto;
+    }
+}
+
+.replenishment-form .fieldset {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    @media (min-width: 768px) {
+        flex-direction: row;
+    }
+}
+
+.replenishment-form .field {
+    background-color: var(--color-titanium-white);
+    border-radius: 12px;
+    position: relative;
+    width: 100%;
+}
+
+.replenishment-form .field .input {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 700;
+    height: 64px;
+    outline: none;
+    @media (min-width: 768px) {
+        width: 284px;
+    }
+}
+
+.replenishment-form .field .input::placeholder {
+    color: var(--color-gray-regent);
+}
+
+.replenishment-form .field.steam-login .label {
+    display: none;
+}
+
+.replenishment-form .field.steam-login .icon {
+    color: var(--color-light-slate-gray);
+    font-size: 20px;
+    left: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.replenishment-form .field.steam-login .input {
+    padding-left: 52px;
+    padding-right: 48px;
+    position: relative;
+    z-index: 1
+}
+
+.replenishment-form .field.steam-login .button-info {
+    background: var(--color-gray-chateau);
+    border: 0;
+    border-radius: 6px;
+    font-family: Georgia, var(--sans);
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 700;
+    height: 20px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    z-index: 2;
+}
+
+.replenishment-form .field.steam-login .button-info {
+    background-color: oklch(from var(--color-gray-chateau) calc(l - 0.15) c h);
+}
+
+.replenishment-form .field.amount .label {
+    color: var(--color-gray-regent);
+    font-size: 12px;
+    font-weight: 700;
+    padding-left: 48px;
+    position: absolute;
+    top: 13px;
+    z-index: 0;
+}
+
+.replenishment-form .field.amount .input {
+    font-size: 18px;
+    height: 64px;
+    padding-left: 48px;
+    padding-right: 140px;
+    padding-top: 31px;
+    position: relative;
+    z-index: 1;
+    @media (min-width: 768px) {
+        width: 342px;
+    }
+}
+
+.replenishment-form .field.amount .currency-symbol {
+    background-color: var(--color-light-slate-gray);
+    border-radius: 50%;
+    color: var(--color-white);
+    display: inline-block;
+    font-size: 15px;
+    font-style: normal;
+    left: 20px;
+    line-height: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    z-index: 0;
+}
+
+.replenishment-form .field.amount .steam-replenishment-currency-symbol {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 18px;
+    left: 48px;
+    position: absolute;
+    top: 35px;
+    z-index: 0;
+}
+
+.replenishment-form .field.amount .currencies-list {
+    display: flex;
+    gap: 0 6px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.replenishment-form .field.amount .button-set-currency {
+    background-color: var( --color-glossy-platinum);
+    border: 0;
+    color: var(--color-gray-regent);
+    font-weight: 700;
+    height: 36px;
+    width: 36px;
+}
+
+.replenishment-form .field.amount .button-set-currency:hover {
+    background-color: oklch(from var(--color-glossy-platinum) calc(l - 0.15) c h);
+}
+
+.replenishment-form .field.amount .button-set-currency.active {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.replenishment-form .field.amount .button-set-currency.active:hover {
+    background-color: oklch(from var(--color-black) calc(l - 0.15) c h);
+    color: oklch(from var(--color-white) calc(l - 0.15) c h);
+}
+
+.replenishment-form .button-submit {
+    border-radius: 12px;
+    font-weight: 700;
+    height: 64px;
+    width: 100%;
+
+    @media (min-width: 768px) {
+        width: 200px
+    }
+}

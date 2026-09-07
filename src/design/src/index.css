@@ -1,0 +1,313 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-gunmetal-black: #16181D;
+  --color-gunmetal-black2: #14181D;
+  --color-light-slate-gray: #76829B;
+  --color-sporty-white: #EFF1F5;
+  --color-american-white: #F1F2F5;
+  --color-titanium-white: #F4F5F7;
+  --color-titanium-white2: #F2F4F7;
+  --color-tuatara: #363636;
+  --color-sparkling-silver: #E5E9F1;
+  --color-dew: #D1D9E4;
+  --color-tender-pastel-blue: #DFE5EF;
+  --color-glossy-platinum: #E8EAED;
+  --color-refreshing-mint: #6EB83F;
+  --color-elegant-green: #4C9A2A;
+  --color-gray-chateau: #A0A8B5;
+  --color-gray-regent: #8A94A6;
+  --color-cosmos: #1F2937;
+  --color-silver-steel: #9CA3AF;
+
+  --text: var(--color-tuatara);
+  --text-h: var(--color-tuatara);
+  --bg: #fff;
+  --sans: Montserrat, sans-serif;
+  --heading: Montserrat, sans-serif;
+  --gilroy-sans: 'Gilroy', sans-serif;
+
+  --btn-border-radius: 10px;
+  --primary-color: var(--color-black);
+  --btn-background-color: var(--primary-color);
+  --btn-text-color: var(--color-white);
+  --btn-border-color: var(--btn-background-color);
+  --btn-border: 1px solid var(--btn-border-color);
+
+  --conteiner-width: 1280px;
+  --container-space: 15px;
+  --container-space-desktop: 40px;
+
+  font: 16px/1.5 var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --swiper-pagination-bottom: 17px;
+  --swiper-pagination-color: var(--color-white);
+  --swiper-pagination-bullet-inactive-color: var(--color-white);
+  --swiper-pagination-bullet-inactive-opacity: .45;
+  --swiper-pagination-bullet-border-radius: 12px;
+  --swiper-pagination-bullet-height: 4px;
+  --swiper-pagination-bullet-width: 20px;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+/* Reset and base styles  */
+* {
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Links */
+
+a, a:link, a:visited  {
+  text-decoration: none;
+}
+
+a:hover  {
+  text-decoration: none;
+}
+
+/* Common */
+
+aside, nav, footer, header, section, main {
+  display: block;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ul, ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+/* Form */
+
+input, textarea, button, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button, input[type="submit"] {
+  align-items: center;
+  display: inline-flex;
+  box-shadow: none;
+  background-color: transparent;
+  background: none;
+  cursor: pointer;
+  justify-content: center;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+label {
+  cursor: pointer;
+}
+
+legend {
+  display: block;
+}
+
+input[type='file'] {
+  max-width: 100%;
+}
+
+/* Font Family*/
+@font-face {
+  font-family: "icomoon";
+  src: url("./assets/fonts/icomoon/icomoon.woff") format("woff"),
+  url("./assets/fonts/icomoon/icomoon.ttf") format("truetype"),
+  url("./assets/fonts/icomoon/icomoon.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+body {
+  margin: 0;
+}
+
+#root {
+  background-color: #DADADA;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text-h);
+}
+
+h1, .h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+
+h2, .h2 {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+h3, .h3 {
+  letter-spacing: -0.03em;
+  line-height: 1.69;
+}
+
+p {
+  margin: 0;
+}
+
+.button {
+  align-items: center;
+  background-color: var(--btn-background-color);
+  border: var(--btn-border);
+  border-radius: var(--btn-border-radius);
+  color: var(--btn-text-color);
+  justify-content: center;
+  display: inline-flex;
+}
+
+.button:hover {
+  background-color: oklch(from var(--btn-background-color) calc(l - 0.15) c h);
+  border-color: oklch(from var(--btn-border-color) calc(l - 0.15) c h);
+  color: oklch(from var(--btn-text-color) calc(l - 0.15) c h);
+}
+
+.button.alternate {
+  background-color: var(--color-sporty-white);
+  border-color: var(--color-sporty-white);
+  color: var(--color-light-slate-gray);
+}
+
+.button.alternate:hover {
+  background-color: oklch(from var(--color-sporty-white) calc(l - 0.15) c h);
+  border-color: oklch(from var(--color-sporty-white) calc(l - 0.15) c h);
+  color: oklch(from var(--color-light-slate-gray) calc(l - 0.15) c h);
+}
+
+/** Icons styles **/
+.icon {
+  font-family: "icomoon" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.icon.icon-catalog:before {
+  content: '\f00a';
+}
+
+.icon.icon-favorite:before {
+  content: '\f00b';
+}
+
+.icon.icon-profile:before {
+  content: '\f00c';
+}
+
+.icon.icon-arrow-small-right:before {
+  content: '\f00d';
+}
+
+.icon.icon-search:before {
+  content: '\f000';
+}
+
+.icon.icon-arrow-left:before {
+  content: '\f001';
+}
+
+.icon.icon-arrow-right:before {
+  content: '\f002';
+}
+
+.icon.icon-ufo:before {
+  content: '\f003';
+}
+
+.icon.icon-accounts:before {
+  content: '\f004';
+}
+
+.icon.icon-game-currency:before {
+  content: '\f005';
+}
+
+.icon.icon-subscribes:before {
+  content: '\f006';
+}
+
+.icon.icon-keys:before {
+  content: '\f007';
+}
+
+.icon.icon-donate:before {
+  content: '\f008';
+}
+
+.icon.icon-items:before {
+  content: '\f009';
+}
+

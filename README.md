@@ -1,0 +1,72 @@
+# E-Commerce Game Keys Store
+
+Мультистраничный интернет-магазин цифровых товаров и игровых ключей, реализованный на базе **Laravel** (Backend API) и **React + Vite** (Single Page Application / Frontend).
+
+---
+
+## 🛠 Стек технологий
+
+* **Backend:** PHP 8.x, Laravel (Модульная архитектура: `Catalog`, `Sales`), Eloquent ORM, MySQL.
+* **Frontend:** React 18, React Router v6, Vite.
+* **Инфраструктура:** Docker, Docker Compose, Nginx.
+* **Безопасность & Аутентификация:** CSRF-защита сессий (`web`-middleware, `form_key`), базовое шифрование/кодирование URL параметров (`uenc`).
+
+---
+
+## 🏗 Архитектура и Особенности
+
+1. **Мультистраничный клиент (React Router):**
+   * `/` — Главная страница с витриной, слайдерами и разделами товаров.
+   * `/orders/:uuid` — Динамическая страница заказа с отслеживанием статуса и выдачей цифрового ключа.
+2. **Защита от Race Conditions:**
+   * Использование транзакций БД (`DB::transaction`) и блокировки строк (`lockForUpdate()`) при покупке товара, чтобы исключить выдачу одного и того же ключа двум покупателям.
+
+---
+
+## 🚀 Быстрый запуск
+
+### Предварительные требования
+* Docker & Docker Compose
+* Node.js & npm (при локальной разработке без Docker)
+
+---
+
+
+### 1. Клонирование и настройка окружения
+```bash
+
+git clone <repository-url>
+cd shop-app
+
+```
+
+### 2. Запуск через Docker Compose
+Поднимите контейнеры приложения:
+```bash
+
+docker compose up -d --build
+
+```
+### 3. Настройка Backend (Laravel)
+Выполните миграции и сиды внутри контейнера приложения:
+```bash
+
+# Установка зависимостей PHP
+docker exec -it test_shop_app composer install
+
+# Генерация ключа приложения
+docker exec -it test_shop_app php artisan key:generate
+
+# Выполнение миграций и наполнение тестовыми данными
+docker exec -it test_shop_app php artisan migrate --seed
+
+```
+
+### 4. Настройка Frontend (React)
+   Установите npm-пакеты для фронтенд-сервиса:
+```bash
+# Установка JS зависимостей
+docker exec -it test_shop_frontend npm install
+```
+
+Приложение будет доступно по адресу: http://localhost:5173 (или настроенному домену, например http://app.test-shop.localhost:5173).
