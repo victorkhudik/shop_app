@@ -58,5 +58,18 @@ services:
       - app
       - db
 
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test_shop_scheduler
+    restart: unless-stopped
+    working_dir: /var/www/html/src/code
+    command: php artisan schedule:work
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - app
+
 volumes:
   db_data:

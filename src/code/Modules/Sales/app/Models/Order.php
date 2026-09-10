@@ -10,12 +10,24 @@ use Modules\Sales\Models\ProductKey;
 
 class Order extends Model
 {
+    const STATUS_PENDING = 'pending';
+    const STATUS_PAID = 'paid';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CANCELLED = 'cancelled';
+    const STATUS_FAILED = 'failed';
+
     protected $table = 'orders';
     protected $fillable = [
         'uuid',
         'product_id',
         'amount',
         'status',
+        'expires_at',
+    ];
+
+    protected $casts = [
+        'amount' => 'float',
+        'expires_at' => 'datetime',
     ];
 
     public function product(): BelongsTo

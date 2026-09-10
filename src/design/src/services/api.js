@@ -50,6 +50,20 @@ export const payOrder = async (uuid) => {
     return await response.json();
 };
 
+export const cancelOrder = async (uuid) => {
+    const response = await fetch(`/api/v1/sales/orders/${uuid}/cancel`, {
+        method: 'POST',
+        credentials: 'include',
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Ошибка проведения оплаты');
+    }
+
+    return await response.json();
+};
+
 export const createOrder = async (productId) => {
     const response = await fetch('/api/v1/sales/orders', {
         method: 'POST',

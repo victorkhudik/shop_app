@@ -4,6 +4,7 @@ namespace Modules\Sales\Providers;
 
 use Nwidart\Modules\Support\ModuleServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
+use Modules\Sales\Console\CancelExpiredOrdersCommand;
 
 class SalesServiceProvider extends ModuleServiceProvider
 {
@@ -36,11 +37,32 @@ class SalesServiceProvider extends ModuleServiceProvider
 
     /**
      * Define module schedules.
-     * 
+     *
      * @param $schedule
      */
     // protected function configureSchedules(Schedule $schedule): void
     // {
     //     $schedule->command('inspire')->hourly();
     // }
+
+    public function register(): void
+    {
+        parent::register();
+        $this->mergeConfigFrom(
+            module_path('Sales', 'config/config.php'), 'sales'
+        );
+    }
+
+    public function boot(): void
+    {
+        parent::boot();
+        $this->commands([
+            CancelExpiredOrdersCommand::class,
+        ]);
+
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('sales:cancel-expired-orders')->everyMinute();
+        });
+    }
 }
