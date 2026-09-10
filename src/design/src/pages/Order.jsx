@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import {getOrderInfo, payOrder} from '../services/api';
 import formatPrice from "../utils/formatPrice.js";
+import { useOrderSocket } from '../hooks/useOrderSocket';
 
 export default function Order() {
     const {uuid} = useParams();
@@ -9,7 +10,6 @@ export default function Order() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isPaying, setIsPaying] = useState(false);
-    const [productKey, setProductKey] = useState('');
 
 
     // Функция загрузки данных заказа
@@ -39,6 +39,8 @@ export default function Order() {
     useEffect(() => {
         fetchOrder();
     }, [uuid]);
+
+    useOrderSocket(uuid, setOrder, fetchOrder);
 
     if (loading) return <div className="container" style={{padding: '40px 0'}}>Загрузка заказа...</div>;
     if (error) return <div className="container" style={{padding: '40px 0', color: 'red'}}>Ошибка: {error}</div>;

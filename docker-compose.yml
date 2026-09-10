@@ -42,5 +42,21 @@ services:
     depends_on:
       - app
 
+  reverb:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test_shop_reverb
+    restart: unless-stopped
+    working_dir: /var/www/html/src/code
+    command: sh -c "sleep 5 && php artisan config:clear && php artisan reverb:start --host=0.0.0.0 --port=8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - app
+      - db
+
 volumes:
   db_data:

@@ -4,7 +4,7 @@ import { placeOrder } from "../../../../action/placeOrder.js";
 
 export default function PlaceOrder({product}) {
     const navigate = useNavigate();
-    const [isDisabled, setIsDisabled] = useState(product.quantity === 0);
+    const isDisabled = product.quantity <= 0 || !product.is_active;
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {

@@ -9,6 +9,8 @@ use Modules\Catalog\Models\Product;
 use Modules\Sales\Http\Requests\CreateOrderRequest;
 use Modules\Sales\Models\Order;
 use Modules\Sales\Models\ProductKey;
+use Modules\Catalog\Events\ProductUpdated;
+use Modules\Sales\Events\OrderUpdated;
 
 class OrderController extends Controller
 {
@@ -27,13 +29,14 @@ class OrderController extends Controller
             $order = Order::create([
                 'uuid' => (string)Str::uuid(),
                 'product_id' => $product->id,
-                'amount' => $product->price,
+                'amount' => $product->special_price ?: $product->price,
                 'email' => $request->email,
                 'status' => 'pending',
             ]);
 
             $product->decrement('quantity', 1);
             $product->increment('sales', 1);
+            event(new ProductUpdated($product->fresh()));
 
             return response()->json([
                 'order_uuid' => $order->uuid,
@@ -72,12 +75,23 @@ class OrderController extends Controller
                 return response()->json(['message' => 'Order already processed']);
             }
 
+            $product = Product::where('id', $order->product_id)->lockForUpdate()->first();
+
             $key = ProductKey::where('is_issued', false)
                 ->lockForUpdate()
                 ->first();
 
             if (!$key) {
                 $order->update(['status' => 'failed']);
+
+                if ($product) {
+                    $product->increment('quantity', 1);
+                    $product->decrement('sales', 1);
+                    event(new ProductUpdated($product->fresh()));
+                }
+
+                event(new OrderUpdated($order->fresh()));
+
                 return response()->json(['message' => 'Out of stock', 'status' => 'failed'], 422);
             }
 
@@ -87,6 +101,7 @@ class OrderController extends Controller
             ]);
 
             $order->update(['status' => 'completed']);
+            event(new OrderUpdated($order->fresh()));
 
             return response()->json(['message' => 'Success', 'status' => 'paid', 'amount' => $order->amount, 'key_value' => $key->key_value], 200);
         });
