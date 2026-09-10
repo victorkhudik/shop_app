@@ -19,7 +19,6 @@ class OrderController extends Controller
         return DB::transaction(function () use ($request) {
             $product = Product::where('id', $request->product_id)
                 ->where('is_active', true)
-                ->lockForUpdate()
                 ->firstOrFail();
 
             if ($product->quantity <= 0) {
@@ -33,10 +32,6 @@ class OrderController extends Controller
                 'email' => $request->email,
                 'status' => 'pending',
             ]);
-
-            $product->decrement('quantity', 1);
-            $product->increment('sales', 1);
-            event(new ProductUpdated($product->fresh()));
 
             return response()->json([
                 'order_uuid' => $order->uuid,
@@ -75,7 +70,22 @@ class OrderController extends Controller
                 return response()->json(['message' => 'Order already processed']);
             }
 
-            $product = Product::where('id', $order->product_id)->lockForUpdate()->first();
+            $product = Product::where('id', $order->product_id)
+                ->where('is_active', true)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            if ($product->quantity <= 0) {
+                $order->update(['status' => 'failed']);
+                event(new OrderUpdated($order->fresh()));
+
+                return response()->json(['message' => 'Товар закончился'], 422);
+            }
+
+            $product->increment('sales', 1);
+            $product->decrement('quantity', 1);
+            event(new ProductUpdated($product->fresh()));
+
 
             $key = ProductKey::where('is_issued', false)
                 ->lockForUpdate()
@@ -83,16 +93,9 @@ class OrderController extends Controller
 
             if (!$key) {
                 $order->update(['status' => 'failed']);
-
-                if ($product) {
-                    $product->increment('quantity', 1);
-                    $product->decrement('sales', 1);
-                    event(new ProductUpdated($product->fresh()));
-                }
-
                 event(new OrderUpdated($order->fresh()));
 
-                return response()->json(['message' => 'Out of stock', 'status' => 'failed'], 422);
+                return response()->json(['message' => 'Ключи закончились', 'status' => 'failed'], 422);
             }
 
             $key->update([

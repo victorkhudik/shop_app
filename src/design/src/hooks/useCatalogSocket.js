@@ -9,7 +9,6 @@ export const useCatalogSocket = (setProductsState, refetchCatalog) => {
             setProductsState((prevState) => {
                 if (!prevState) return prevState;
 
-                console.log(data);
                 const updateProduct = (p) =>
                     Number(p.id) === Number(data.id)
                         ? { ...p, quantity: data.quantity, price: data.price, special_price: data.special_price }
@@ -46,7 +45,6 @@ export const useCatalogSocket = (setProductsState, refetchCatalog) => {
 
         const handleReconnect = () => {
             console.log('Сеть восстановлена. Синхронизация данных...');
-            console.log(refetchCatalog ? '1' : '0');
             if (refetchCatalog) refetchCatalog(); // Актуализируем статус через REST API
         };
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { placeOrder } from "../../../../action/placeOrder.js";
+import { buyProduct } from "../../../../action/buyProduct.js";
 
-export default function PlaceOrder({product}) {
+export default function BuyProduct({product}) {
     const navigate = useNavigate();
     const isDisabled = product.quantity <= 0 || !product.is_active;
     const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ export default function PlaceOrder({product}) {
         setLoading(true);
 
         try {
-            await placeOrder({
+            await buyProduct({
                 productId: product.id,
                 navigate: navigate
             });
