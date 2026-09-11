@@ -539,8 +539,18 @@ class ProductWithDependenciesSeeder extends Seeder
                 ]
             ]
         ];
+
+        $generatedProducts = $this->generateGamingProducts(1000);
+        foreach ($generatedProducts as $type => $items) {
+            if (!isset($sampleProducts[$type])) {
+                $sampleProducts[$type] = [];
+            }
+            $sampleProducts[$type] = array_merge($sampleProducts[$type], $items);
+        }
+
         Schema::disableForeignKeyConstraints();
         DB::table(self::TABLE_NAME)->truncate();
+        DB::table('category_product')->truncate();
         Schema::enableForeignKeyConstraints();
 
         $categoryIds = Category::pluck('id')->toArray();
@@ -585,5 +595,57 @@ class ProductWithDependenciesSeeder extends Seeder
                 $imageIndex++;
             }
         }
+    }
+
+    /**
+     * Генерация игровых товаров
+     */
+    private function generateGamingProducts(int $count): array
+    {
+        $games = [
+            'CS2', 'Dota 2', 'GTA V', 'Rust', 'Elden Ring', 'Cyberpunk 2077', 'Valorant',
+            'Apex Legends', 'Fortnite', 'Minecraft', 'Genshin Impact', 'League of Legends',
+            'Standoff 2', 'Tarkov', 'World of Tanks', 'Diablo IV', 'Helldivers 2', 'FC 25'
+        ];
+
+        $regions = ['РФ/СНГ', 'Турция', 'Казахстан', 'GLOBAL', 'Европа', 'США', 'Украина'];
+        $platforms = ['Steam', 'PlayStation', 'Xbox', 'Epic Games', 'App Store', 'Google Play'];
+        $prefixes = ['[АВТО 24/7]', '⚡ Мгновенная доставка', '⭐ TOP SALE', '🔥 АКЦИЯ', '[Скидка]', '✅ ГАРАНТИЯ'];
+
+        $typesData = [
+            'Ключи' => ['Steam Ключ', 'Ключ Активации', 'Digital Key', 'Лицензионный Ключ', 'CD-Key'],
+            'Донат' => ['Боевой Пропуск', 'Валюта', 'Кристаллы', 'Донат По Нику', 'Пополнение Счета'],
+            'Подписки' => ['Подписка 1 месяц', 'Подписка 3 месяца', 'Premium 1 Год', 'Pass VIP', 'Ultimate Access'],
+            'Аккаунты' => ['Личный Аккаунт', 'Готовый Аккаунт', 'Аккаунт с Играми', 'Новый Аккаунт + Почта', 'VIP Аккаунт'],
+            'Игровая валюта' => ['Золото', 'Монеты', 'Кредиты', 'G-Coins', 'VP Points', 'UC', 'Рубины'],
+            'Предметы' => ['Скин', 'Инвентарь', 'Редкий Предмет', 'Набор Оружия', 'Секретный Пак'],
+            'Другое' => ['Буст Уровня', 'Прокачка', 'Обучение/Коачинг', 'Услуги', 'Подарочная Карта']
+        ];
+
+        $result = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $typeName = array_rand($typesData);
+            $itemSubtype = $typesData[$typeName][array_rand($typesData[$typeName])];
+            $game = $games[array_rand($games)];
+            $region = $regions[array_rand($regions)];
+            $platform = $platforms[array_rand($platforms)];
+            $prefix = (rand(0, 1) === 1) ? $prefixes[array_rand($prefixes)] . ' ' : '';
+
+            $name = trim("{$prefix}{$game} — {$itemSubtype} | {$platform} | {$region}");
+
+            $basePrice = rand(10, 500) * 10 - 1;
+            $hasSpecial = rand(1, 5) === 1;
+            $specialPrice = $hasSpecial ? round($basePrice * 0.8) : null;
+
+            $result[$typeName][] = [
+                'name' => $name,
+                'price' => (float)$basePrice,
+                'special_price' => $specialPrice ? (float)$specialPrice : null,
+                'sales' => rand(0, 5000),
+            ];
+        }
+
+        return $result;
     }
 }

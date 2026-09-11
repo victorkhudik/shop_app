@@ -82,10 +82,15 @@
     width: 227px;
 }
 
+.products-list .product-item .product-item-info {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
 .products-list .product-item .product-item-details {
     align-items: flex-start;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 11.53px;
     padding: 12.1661px 13.1748px 14.8217px;
 }
@@ -98,10 +103,12 @@
 }
 
 .products-list .product-item .price-box {
+    align-self: flex-end;
     color: var(--color-elegant-green);
     font-size: 19.7622px;
     font-weight: 700;
     line-height: 20px;
+    width: 100%;
 }
 
 .products-list .product-item .price-box .old-price {
@@ -117,6 +124,7 @@
 }
 
 .products-list .product-item .product-item-inner {
+    align-self: flex-end;
     width: 100%;
 }
 

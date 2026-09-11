@@ -4,7 +4,7 @@ import BuyProduct from "./product/BuyProduct.jsx";
 export default function Product({product}) {
     return (
         <div className="product-item-info" id={`product-item-info_${product.id}`} data-container="product-grid">
-            <a href={product.slug}
+            <a href={product.slug} title={product.name}
                className="product photo product-item-photo" tabIndex="-1">
                 <span className={`product-image-container product-image-container-${product.id}`}>
                     <span className="product-image-wrapper">
@@ -16,8 +16,9 @@ export default function Product({product}) {
             </a>
             <div className="product details product-item-details" bis_skin_checked="1">
                 <strong className="product name product-item-name">
-                    <a className="product-item-link" href={product.slug}>
-                        {product.name} </a>
+                    <a className="product-item-link" href={product.slug} title={product.name}>
+                        {product.name}
+                    </a>
                 </strong>
 
                 {/* Просмотр количества доступных товаров */}
