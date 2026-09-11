@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: test_shop_app
+    working_dir: /var/www/html/src/code
     ports:
       - "80:80"
     dns:

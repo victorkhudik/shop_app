@@ -20,7 +20,8 @@ export default function Product({product}) {
                         {product.name} </a>
                 </strong>
 
-                {product.quantity}
+                {/* Просмотр количества доступных товаров */}
+                {/*{product.quantity}*/}
 
                 <PriceBox product={product}/>
 

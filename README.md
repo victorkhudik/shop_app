@@ -67,4 +67,22 @@ docker exec -it test_shop_app php artisan migrate --seed
 docker exec -it test_shop_frontend npm install
 ```
 
+### Дополнительные опции
+```bash
+# Обновление и создание товара 
+docker exec -it test_shop_app php artisan catalog:upsert-product
+                            {--id= : ID товара (для прямого обновления)}
+                            {--sku= : Артикул/SKU товара}
+                            {--name= : Название товара}
+                            {--slug= : URL товара}
+                            {--price= : Стоимость}
+                            {--special_price= : Стоимость}
+                            {--quantity= : Количество на складе}
+                            {--sales= : Количество проданых товаров}
+                            {--type_name= : Название типа товара}
+                            
+#  Отменена просроченных заказов
+docker exec -it test_shop_app php artisan sales:cancel-expired-orders
+```
+
 Приложение будет доступно по адресу: http://localhost:5173 (или настроенному домену, например http://app.test-shop.localhost:5173).
