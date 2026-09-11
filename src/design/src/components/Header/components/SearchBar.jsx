@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import {useCatalogSearch} from "../../../hooks/useCatalogSearch.js";
 
 export default function SearchBar() {
@@ -6,6 +7,11 @@ export default function SearchBar() {
         const params = new URLSearchParams(window.location.search);
         return params.get('query') || '';
     });
+
+    const location = useLocation();
+    useEffect(() => {
+        setQuery('');
+    }, [location.pathname]);
 
     const { results, loading } = useCatalogSearch(query);
 
