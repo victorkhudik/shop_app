@@ -8,10 +8,11 @@
 
 * **Backend:** PHP 8.x, Laravel (Модульная архитектура: `Catalog`, `Sales`), Eloquent ORM, MySQL.
 * **Frontend:** React 18, React Router v6, Vite.
-* **Инфраструктура:** Docker, Docker Compose, Apache.
+* **Инфраструктура:** Docker, Docker Compose(`app`, `db`, `reverb`, `scheduler`), Apache.
+* **Realtime/Websockets:** Laravel Reverb.
 ---
 
-## 🏗 Архитектура и Особенности
+Высокопроизводительный каталог товаров для e-commerce платформы с моментальным поиском, URL-синхронизацией и масштабируемой структурой базы данных.
 
 1. **Мультистраничный клиент (React Router):**
    * `/` — Главная страница с витриной, слайдерами и разделами товаров.
