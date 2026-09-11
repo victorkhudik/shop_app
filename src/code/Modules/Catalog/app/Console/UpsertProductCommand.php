@@ -22,7 +22,7 @@ class UpsertProductCommand extends Command
                             {--name= : Название товара}
                             {--slug= : URL товара}
                             {--price= : Стоимость}
-                            {--special_price= : Стоимость}
+                            {--special_price= : Специальная цена}
                             {--quantity= : Количество на складе}
                             {--sales= : Количество проданых товаров}
                             {--type_name= : Название типа товара}';

@@ -38,7 +38,7 @@ class OrderController extends Controller
             $order = Order::create([
                 'uuid' => (string)Str::uuid(),
                 'product_id' => $product->id,
-                'amount' => $product->special_price ?: $product->price,
+                'amount' => $product->special_price && $product->special_price < $product->price  ? $product->special_price: $product->price,
                 'status' => Order::STATUS_PENDING,
                 'expires_at' => $expiresAt,
             ]);

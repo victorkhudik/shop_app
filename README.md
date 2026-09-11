@@ -77,7 +77,7 @@ docker exec -it test_shop_app php artisan catalog:upsert-product
                             {--name= : Название товара}
                             {--slug= : URL товара}
                             {--price= : Стоимость}
-                            {--special_price= : Стоимость}
+                            {--special_price= : Специальная цена}
                             {--quantity= : Количество на складе}
                             {--sales= : Количество проданых товаров}
                             {--type_name= : Название типа товара}
